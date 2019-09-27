@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片预览</title>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+</head>
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+<body>
+
+</body>
+<script type="text/template" id="table">
+    <table>
+            <thead>
+                <td>姓名</td>
+                <td>性别</td>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>王维家</td>
+                    <td>男</td>
+                </tr>
+                <tr>
+                    <td>Jackson</td>
+                    <td>男</td>
+                </tr>
+            </tbody>
+        </table>
+</script>
+</html>
+<script src="./jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../../plugins/preview/picPreview.js"></script>
+<script>
+    var srcArr = [
+        {
+            "src": "./img/11.gif",
+            "name": "图片1"
+        },
+        {
+            "src": "./img/12.jpg",
+            "name": "图片2"
+        },
+        {
+            "src": "./img/3.jpg",
+            "name": "图片3"
+        },
+        {
+            "src": "./img/4.jpg",
+            "name": "图片4"
+        },
+        {
+            "src": "./img/5.jpeg",
+            "name": "图片5"
+        },
+        {
+            "src": "./img/14.jpg",
+            "name": "图片6"
+        },
+        {
+            "src": "./img/7.jpeg",
+            "name": "图片7"
+        },
+        {
+            "src": "./img/xc3.jpg",
+            "name": "图片8"
+        },
+        {
+            "src": "./img/gz1.png",
+            "name": "图片9"
+        }
+    ]
+    var picPrev = picPreview.init({
+        // imgArr : document.querySelectorAll('.img-list img'), // 原生dom, jq dom, arr
+        imgArr : srcArr, // 支持jq dom 或 图片数据的相关数组
+        config : {
+            title: '预览图片',
+            // 标题过滤方法
+            titleFormat: function(name) {
+                return name.replace(/\s+/,'')
+            },
+            // 图片描述的过滤方法
+            descriptionFormat: function(text) {
+                return text.replace(/\s+/,'')
+            },
+            // 指定下一页预览的图片index（指定初始化打开的图片index）
+            // showImgIndex: 0, // 从0开始，数值型
+            pagingBtnShow: true, // 上一页 下一页 按钮 （可配置成强制展示， 也可根据图片数量（>1）决定是否需要展示）
+            scaleBtnShow: true, // 是否显示缩放操作按钮, 默认显示
+            rotateBtnShow: true, // 是否显示 旋转 操作按钮, 默认显示
+            resetBtnShow: true, // 是否显示 复原 操作按钮, 默认显示
+            fullScreenBtnShow: true, // 是否显示 全屏 操作按钮
+            downloadShow: true, // 下载
+            onBeforeDownload: function(o) {
+                // o.downSrc = './img/4.jpg'
+                // o.attachName = '图片4'
+            },
+            oneToOneBtnShow: true, // 是否显示 1:1 操作按钮 （展示原图大小）
+            tailoringBtnShow: false, // 是否显示 裁剪 操作按钮 TODO
+
+            // LRcolumns: true, // 是否 左右两栏
+            // UDcolumns: true, // 是否 上下两栏
+            // 自定义需要渲染的内容
+            // contentRender: function(t) {
+            //     return $('#table').html();
+            // },
+            // columnsProportion: '2:1', // 两栏占比
+
+            // 翻页会掉
+            onBeforePrev: function(e) {
+                // picPrev.paging.go(2); // 跳转到第三张图
+                // picPrev.description.value('xxx   dd'); // 设置当前预览图片的title
+            },
+            onPrev:function(){
+                // picPrev.title.value('ddd   dd'); // 设置当前预览图片的title
+            },
+            onBeforeNext: function(e) {
+            },
+            onNext:function(){
+            },
+            // 旋转回调
+            onBeforeRoate: function(res) {
+            },
+            onRoate:function(res){
+                // res.angle = 60; // 
+                // picPrev.rotation.set(); // 指定当前图片一次旋转的角度
+                // 或者 
+                // picPrev.rotation.set(60); // 指定当前图片一次旋转的角度
+            },
+            compressOpen: true, // 是否开启压缩功能，默认不开启
+            // removeLoadingCb: function() {
+            //     return hideLoading();
+            // }
+        }
+    })
+    setTimeout(function() {
+        console.log('go')
+        picPrev.paging.go(7)
+    }, 1000)
+    // showLoading()
+</script>
